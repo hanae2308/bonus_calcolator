@@ -117,73 +117,17 @@
             margin-bottom: 5px;
         }
         
-        .method-options {
-            display: flex;
-            gap: 15px;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-        
-        .method-option {
-            flex: 1;
-            min-width: 250px;
-        }
-        
-        .method-card {
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            height: 100%;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        }
-        
-        .method-card:hover {
-            border-color: #3498db;
-            background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);
-        }
-        
-        .method-card.selected {
-            border-color: #2ecc71;
-            background: linear-gradient(135deg, #f0f9f4 0%, #e6f7ef 100%);
-            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.2);
-        }
-        
-        .method-card h3 {
-            margin-top: 0;
-            color: #2c3e50;
-        }
-        
-        .method-card p {
-            color: #666;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-        
-        .method-steps {
-            background-color: rgba(255, 255, 255, 0.7);
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 10px;
-            font-size: 13px;
-        }
-        
-        .method-steps ol {
-            margin: 0;
-            padding-left: 20px;
-        }
-        
-        .method-steps li {
-            margin-bottom: 5px;
-        }
-        
         .tier-rules {
             background-color: #f9f0ff;
-            padding: 15px;
+            padding: 20px;
             border-radius: 8px;
-            margin: 15px 0;
+            margin: 20px 0;
             border-left: 4px solid #9b59b6;
+        }
+        
+        .tier-rules h3 {
+            color: #9b59b6;
+            margin-top: 0;
         }
         
         .tier-rules table {
@@ -195,13 +139,13 @@
         .tier-rules th {
             background-color: #9b59b6;
             color: white;
-            padding: 8px 12px;
+            padding: 12px;
             text-align: left;
             font-size: 14px;
         }
         
         .tier-rules td {
-            padding: 8px 12px;
+            padding: 10px 12px;
             border-bottom: 1px solid #e0d0f0;
             font-size: 14px;
         }
@@ -309,11 +253,11 @@
             background-color: #f0f7ff;
         }
         
-        .campaigner-row {
+        .mailer-row {
             background-color: #f8f9fa;
         }
         
-        .support-row {
+        .warmup-row {
             background-color: #e8f4fc !important;
             font-weight: 600;
         }
@@ -346,29 +290,15 @@
             background-color: #f8f9fa;
         }
         
-        .support-amount {
+        .warmup-amount {
             font-family: 'Courier New', monospace;
             font-weight: 800;
             text-align: right;
             color: #9b59b6;
         }
         
-        .instructions {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-        
-        .instructions ol {
-            padding-left: 20px;
-        }
-        
-        .instructions li {
-            margin-bottom: 10px;
-        }
-        
         @media (max-width: 768px) {
-            .input-section, .method-options {
+            .input-section {
                 flex-direction: column;
             }
             
@@ -405,6 +335,16 @@
         .support-input {
             flex: 1;
         }
+        
+        .method-title {
+            text-align: center;
+            color: #9b59b6;
+            padding: 15px;
+            background: linear-gradient(135deg, #f9f0ff 0%, #e6d4f0 100%);
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px solid #9b59b6;
+        }
     </style>
 </head>
 <body>
@@ -412,12 +352,12 @@
         <h1>Team Revenue Calculator</h1>
         
         <div class="description">
-            <p>Calculate mailers' revenue in local currency and determine warmup payments using two different methods.</p>
+            <p>Calculate mailers' revenue in local currency and determine warmup payments using Tier-Based deduction method.</p>
         </div>
         
         <div class="input-section">
             <div class="input-group">
-                <label for="amounts">Enter mailers Data :</label>
+                <label for="amounts">Enter mailers Data:</label>
                 <textarea id="amounts" placeholder="Format: Name  Code  $Amount
 Example:
 Aissam LEMNIAI  CMH6  $20,192
@@ -441,11 +381,11 @@ Mohamed Amine EL GHOURI	CMH6	$6,591</textarea>
                 
                 <div class="support-names">
                     <div class="support-input">
-                        <label for="support1">wamrup Person 1 Name:</label>
+                        <label for="support1">Warmup Person 1 Name:</label>
                         <input type="text" id="support1" value="Hanae">
                     </div>
                     <div class="support-input">
-                        <label for="support2">wamrup Person 2 Name:</label>
+                        <label for="support2">Warmup Person 2 Name:</label>
                         <input type="text" id="support2" value="Lhoucine">
                     </div>
                 </div>
@@ -478,35 +418,18 @@ Mohamed Amine EL GHOURI	CMH6	$6,591</textarea>
                     </div>
                 </div>
                 
-                <h3>Choose warmup Payment Method</h3>
-                <div class="method-options">
-                    <div class="method-option">
-                        
-                    </div>
-                    
-                    <div class="method-option">
-                        <div class="method-card" id="method2Option" onclick="selectMethod(2)">
-                            <h3>⚖️ Method 2: Tier-Based Deduction</h3>
-                            <p>Deduct fixed amount from each mailer based on total dollar revenue tier.</p>
-                            <div class="method-steps">
-                                <ol>
-                                    <li>Calculate each mailer's raw revenue</li>
-                                    <li>Check total dollar revenue tier</li>
-                                    <li>Deduct fixed amount from each mailer</li>
-                                    <li>Combine deductions, split between 2 warmup people</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
+                <div class="method-title">
+                    <h3>⚖️ Tier-Based Warmup Payment Method</h3>
+                    <p>Deduct fixed amount from each mailer based on total dollar revenue tier, then split between warmup people.</p>
                 </div>
                 
-                <div class="tier-rules" id="tierRules">
-                    <h4>Tier-Based Deduction Rules (Method 2):</h4>
+                <div class="tier-rules">
+                    <h3>Tier-Based Deduction Rules</h3>
                     <table>
                         <thead>
                             <tr>
                                 <th>Total Dollar Revenue</th>
-                                <th>Deduction per mailer</th>
+                                <th>Deduction per Mailer</th>
                                 <th>Warmup Payment (Each)</th>
                             </tr>
                         </thead>
@@ -534,8 +457,6 @@ Mohamed Amine EL GHOURI	CMH6	$6,591</textarea>
                         </tbody>
                     </table>
                 </div>
-                
-                <input type="hidden" id="selectedMethod" value="1">
             </div>
         </div>
         
@@ -549,21 +470,22 @@ Mohamed Amine EL GHOURI	CMH6	$6,591</textarea>
             
             <div class="summary">
                 <div class="summary-item">
-                    <h3>mailers</h3>
-                    <div class="value" id="campaignerCount">0</div>
+                    <h3>Mailers</h3>
+                    <div class="value" id="mailerCount">0</div>
                 </div>
                 <div class="summary-item">
                     <h3>Total Dollar Revenue</h3>
                     <div class="value" id="totalDollarRevenue">$0.00</div>
                 </div>
                 <div class="summary-item">
-                    <h3>Payment Method</h3>
-                    <div class="value" id="methodType">Method 1</div>
+                    <h3>Current Tier</h3>
+                    <div class="value" id="currentTier">-</div>
+                    <div class="sub-value" id="tierRange"></div>
                 </div>
                 <div class="summary-item">
                     <h3>Warmup Payment (Each)</h3>
-                    <div class="value" id="supportPayment">0 dhs</div>
-                    <div class="sub-value" id="methodDetails"></div>
+                    <div class="value" id="warmupPayment">0 dhs</div>
+                    <div class="sub-value" id="paymentDetails"></div>
                 </div>
             </div>
             
@@ -585,30 +507,18 @@ Mohamed Amine EL GHOURI	CMH6	$6,591</textarea>
             </table>
         </div>
         
-       
     </div>
 
     <script>
-        let selectedMethod = 1;
-        let campaignersData = [];
+        let mailersData = [];
         
         document.getElementById('calculateBtn').addEventListener('click', calculate);
         document.getElementById('resetBtn').addEventListener('click', resetToExample);
         document.getElementById('amounts').addEventListener('input', updateTierTable);
         
-        function selectMethod(method) {
-            selectedMethod = method;
-            document.getElementById('selectedMethod').value = method;
-            
-            // Update UI
-            document.getElementById('method1Option').classList.remove('selected');
-            document.getElementById('method2Option').classList.remove('selected');
-            document.getElementById('method' + method + 'Option').classList.add('selected');
-        }
-        
-        function parseCampaignersData(input) {
+        function parseMailersData(input) {
             const lines = input.split('\n').filter(line => line.trim() !== '');
-            const campaigners = [];
+            const mailers = [];
             
             lines.forEach(line => {
                 // Extract name (everything before the last number)
@@ -635,7 +545,7 @@ Mohamed Amine EL GHOURI	CMH6	$6,591</textarea>
                     }
                     
                     if (dollarAmount > 0) {
-                        campaigners.push({
+                        mailers.push({
                             name: name,
                             code: code,
                             dollarAmount: dollarAmount
@@ -644,27 +554,27 @@ Mohamed Amine EL GHOURI	CMH6	$6,591</textarea>
                 }
             });
             
-            return campaigners;
+            return mailers;
         }
         
         function updateTierTable() {
-            // Parse campaigners data to count them
+            // Parse mailers data to count them
             const amountsInput = document.getElementById('amounts').value;
-            const campaigners = parseCampaignersData(amountsInput);
-            const campaignerCount = campaigners.length;
+            const mailers = parseMailersData(amountsInput);
+            const mailerCount = mailers.length;
             
-            // Update tier table with actual campaigner count
+            // Update tier table with actual mailer count
             document.getElementById('tier1Payment').innerHTML = 
-                `(${campaignerCount} × 200) ÷ 2 = <strong>${(campaignerCount * 200 / 2).toLocaleString()} dhs</strong>`;
+                `(${mailerCount} × 200) ÷ 2 = <strong>${(mailerCount * 200 / 2).toLocaleString()} dhs</strong>`;
             
             document.getElementById('tier2Payment').innerHTML = 
-                `(${campaignerCount} × 300) ÷ 2 = <strong>${(campaignerCount * 300 / 2).toLocaleString()} dhs</strong>`;
+                `(${mailerCount} × 300) ÷ 2 = <strong>${(mailerCount * 300 / 2).toLocaleString()} dhs</strong>`;
             
             document.getElementById('tier3Payment').innerHTML = 
-                `(${campaignerCount} × 500) ÷ 2 = <strong>${(campaignerCount * 500 / 2).toLocaleString()} dhs</strong>`;
+                `(${mailerCount} × 500) ÷ 2 = <strong>${(mailerCount * 500 / 2).toLocaleString()} dhs</strong>`;
             
             document.getElementById('tier4Payment').innerHTML = 
-                `(${campaignerCount} × 750) ÷ 2 = <strong>${(campaignerCount * 750 / 2).toLocaleString()} dhs</strong>`;
+                `(${mailerCount} × 750) ÷ 2 = <strong>${(mailerCount * 750 / 2).toLocaleString()} dhs</strong>`;
         }
         
         function calculateRawRevenue(dollarAmount, percentage, exchangeRate) {
@@ -673,31 +583,31 @@ Mohamed Amine EL GHOURI	CMH6	$6,591</textarea>
         
         function calculateTierDeduction(totalDollars) {
             if (totalDollars < 100000) {
-                return { deduction: 200, tier: "Under $100k" };
+                return { deduction: 200, tier: "Under $100k", range: "Less than $100,000" };
             } else if (totalDollars >= 100000 && totalDollars < 150000) {
-                return { deduction: 300, tier: "$100k - $150k" };
+                return { deduction: 300, tier: "$100k - $150k", range: "$100,000 - $150,000" };
             } else if (totalDollars >= 150000 && totalDollars < 200000) {
-                return { deduction: 500, tier: "$150k - $200k" };
+                return { deduction: 500, tier: "$150k - $200k", range: "$150,000 - $200,000" };
             } else {
-                return { deduction: 750, tier: "Over $200k" };
+                return { deduction: 750, tier: "Over $200k", range: "More than $200,000" };
             }
         }
         
         function calculate() {
-            // Parse campaigners data
+            // Parse mailers data
             const amountsInput = document.getElementById('amounts').value;
-            campaignersData = parseCampaignersData(amountsInput);
+            mailersData = parseMailersData(amountsInput);
             
-            if (campaignersData.length === 0) {
-                alert('Please enter valid campaigners data with dollar amounts');
+            if (mailersData.length === 0) {
+                alert('Please enter valid mailers data with dollar amounts');
                 return;
             }
             
             // Get formula values
             const percentage = parseFloat(document.getElementById('percentage').value) || 0;
             const exchangeRate = parseFloat(document.getElementById('exchangeRate').value) || 0;
-            const support1 = document.getElementById('support1').value || "Support 1";
-            const support2 = document.getElementById('support2').value || "Support 2";
+            const warmup1 = document.getElementById('support1').value || "Warmup 1";
+            const warmup2 = document.getElementById('support2').value || "Warmup 2";
             
             if (percentage <= 0 || exchangeRate <= 0) {
                 alert('Please enter valid percentage and exchange rate');
@@ -705,76 +615,55 @@ Mohamed Amine EL GHOURI	CMH6	$6,591</textarea>
             }
             
             // Calculate total dollar revenue
-            const totalDollars = campaignersData.reduce((sum, person) => sum + person.dollarAmount, 0);
+            const totalDollars = mailersData.reduce((sum, person) => sum + person.dollarAmount, 0);
             document.getElementById('totalDollars').value = `$${totalDollars.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             
             // Update tier table with actual count
             updateTierTable();
             
-            // Calculate raw revenue for each campaigner
-            campaignersData.forEach(person => {
+            // Calculate raw revenue for each mailer
+            mailersData.forEach(person => {
                 person.rawRevenue = calculateRawRevenue(person.dollarAmount, percentage, exchangeRate);
             });
             
-            let supportPayment = 0;
-            let methodDetails = "";
-            let deductions = [];
+            // Tier-Based Deduction
+            const tierInfo = calculateTierDeduction(totalDollars);
+            const deductionPerMailer = tierInfo.deduction;
             
-            if (selectedMethod === 1) {
-                // Method 1: Average × 2 (deducted proportionally)
-                const totalRawRevenue = campaignersData.reduce((sum, person) => sum + person.rawRevenue, 0);
-                const averageRevenue = totalRawRevenue / campaignersData.length;
-                const totalToCollect = averageRevenue * 2; // This is the total amount to deduct from campaigners
-                supportPayment = totalToCollect / 2; // Each support gets half
-                
-                methodDetails = `Average: ${averageRevenue.toLocaleString('en-US', {minimumFractionDigits: 2})} dhs × 2 = ${totalToCollect.toLocaleString('en-US', {minimumFractionDigits: 2})} dhs`;
-                
-                // Calculate proportional deduction for each campaigner
-                deductions = campaignersData.map(person => {
-                    // Each campaigner pays proportionally to their raw revenue
-                    return (person.rawRevenue / totalRawRevenue) * totalToCollect;
-                });
-                
-            } else {
-                // Method 2: Tier-Based Deduction
-                const tierInfo = calculateTierDeduction(totalDollars);
-                const deductionPerCampaigner = tierInfo.deduction;
-                
-                // Total deduction from all campaigners
-                const totalDeduction = deductionPerCampaigner * campaignersData.length;
-                // Each support gets half
-                supportPayment = totalDeduction / 2;
-                methodDetails = `Tier: ${tierInfo.tier} (${deductionPerCampaigner} dhs each)`;
-                
-                // Set fixed deductions for each campaigner
-                deductions = campaignersData.map(() => deductionPerCampaigner);
-            }
+            // Total deduction from all mailers
+            const totalDeduction = deductionPerMailer * mailersData.length;
+            // Each warmup gets half
+            const warmupPayment = totalDeduction / 2;
+            
+            // Set fixed deductions for each mailer
+            const deductions = mailersData.map(() => deductionPerMailer);
             
             // Update summary
-            document.getElementById('campaignerCount').textContent = campaignersData.length;
+            document.getElementById('mailerCount').textContent = mailersData.length;
             document.getElementById('totalDollarRevenue').textContent = `$${totalDollars.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            document.getElementById('methodType').textContent = `Method ${selectedMethod}`;
-            document.getElementById('supportPayment').textContent = `${supportPayment.toLocaleString('en-US', {minimumFractionDigits: 2})} dhs`;
-            document.getElementById('methodDetails').textContent = methodDetails;
+            document.getElementById('currentTier').textContent = tierInfo.tier;
+            document.getElementById('tierRange').textContent = tierInfo.range;
+            document.getElementById('warmupPayment').textContent = `${warmupPayment.toLocaleString('en-US', {minimumFractionDigits: 2})} dhs`;
+            document.getElementById('paymentDetails').textContent = `${mailersData.length} mailers × ${deductionPerMailer} dhs ÷ 2`;
             
             // Populate results table
             const tableBody = document.getElementById('resultTableBody');
             tableBody.innerHTML = '';
             
-            // Add campaigners rows
-            campaignersData.forEach((person, index) => {
+            // Add mailers rows
+            mailersData.forEach((person, index) => {
                 const deduction = deductions[index];
                 const netAmount = person.rawRevenue - deduction;
                 
                 const row = document.createElement('tr');
-                row.className = 'campaigner-row';
+                row.className = 'mailer-row';
                 row.innerHTML = `
                     <td class="number-cell">${index + 1}</td>
                     <td>${person.name}</td>
                     <td class="number-cell">${person.code}</td>
                     <td class="amount-cell">$${person.dollarAmount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
                     <td class="amount-cell">${person.rawRevenue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
-                    <td class="deduction-cell">-${deduction.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                    <td class="deduction-cell">-${deduction.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0})}</td>
                     <td class="net-cell">${netAmount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
                 `;
                 tableBody.appendChild(row);
@@ -785,27 +674,26 @@ Mohamed Amine EL GHOURI	CMH6	$6,591</textarea>
             separatorRow.innerHTML = `<td colspan="7" style="height: 10px; background-color: #2c3e50;"></td>`;
             tableBody.appendChild(separatorRow);
             
-            // Add support people rows
-            [support1, support2].forEach((supportName, index) => {
+            // Add warmup people rows
+            [warmup1, warmup2].forEach((warmupName, index) => {
                 const row = document.createElement('tr');
-                row.className = 'support-row';
+                row.className = 'warmup-row';
                 row.innerHTML = `
-                    <td class="number-cell">${campaignersData.length + index + 1}</td>
-                    <td><strong>${supportName}</strong> (Support)</td>
-                    <td class="number-cell">SUP</td>
+                    <td class="number-cell">${mailersData.length + index + 1}</td>
+                    <td><strong>${warmupName}</strong> (Warmup)</td>
+                    <td class="number-cell">WRM</td>
                     <td class="amount-cell">-</td>
                     <td class="amount-cell">-</td>
-                    <td class="deduction-cell">+${supportPayment.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
-                    <td class="support-amount">${supportPayment.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                    <td class="deduction-cell">+${warmupPayment.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                    <td class="warmup-amount">${warmupPayment.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
                 `;
                 tableBody.appendChild(row);
             });
             
             // Add totals row
-            const totalRawRevenue = campaignersData.reduce((sum, person) => sum + person.rawRevenue, 0);
-            const totalDeduction = deductions.reduce((sum, ded) => sum + ded, 0);
-            const totalNetForCampaigners = totalRawRevenue - totalDeduction;
-            const totalForSupports = supportPayment * 2;
+            const totalRawRevenue = mailersData.reduce((sum, person) => sum + person.rawRevenue, 0);
+            const totalNetForMailers = totalRawRevenue - totalDeduction;
+            const totalForWarmup = warmupPayment * 2;
             
             const totalRow = document.createElement('tr');
             totalRow.style.backgroundColor = '#2c3e50';
@@ -813,8 +701,8 @@ Mohamed Amine EL GHOURI	CMH6	$6,591</textarea>
             totalRow.innerHTML = `
                 <td colspan="4" style="font-weight: bold; text-align: right;">TOTALS:</td>
                 <td class="amount-cell" style="color: white;">${totalRawRevenue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
-                <td class="deduction-cell" style="color: white;">-${totalDeduction.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
-                <td class="net-cell" style="color: white;">${(totalNetForCampaigners + totalForSupports).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                <td class="deduction-cell" style="color: white;">-${totalDeduction.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0})}</td>
+                <td class="net-cell" style="color: white;">${(totalNetForMailers + totalForWarmup).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
             `;
             tableBody.appendChild(totalRow);
             
@@ -846,15 +734,12 @@ Mohamed Amine EL GHOURI	CMH6	$6,591`;
             document.getElementById('support1').value = 'Hanae';
             document.getElementById('support2').value = 'Lhoucine';
             
-            selectMethod(1);
-            
             // Hide results
             document.getElementById('results').style.display = 'none';
         }
         
         // Initialize on page load
         window.addEventListener('load', () => {
-            selectMethod(1);
             updateTierTable(); // Update tier table with example data
             calculate(); // Auto-calculate with example data
         });
